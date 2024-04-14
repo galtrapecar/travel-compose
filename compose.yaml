@@ -1,0 +1,40 @@
+services: 
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - path: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    depends_on:
+      - adminer
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:9090
+    
+  web:
+    image: node
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - 8080:8080
+
+  api:
+    image: node
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - path: .env
+    ports:
+      - 3000:3000
+
+
+volumes:
+  pgdata:
