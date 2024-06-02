@@ -6,16 +6,16 @@ services:
       - path: .env
     volumes:
       - pgdata:/var/lib/postgresql/data
-    depends_on:
-      - adminer
+    # depends_on:
+    #   - adminer
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 9090:9090
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
     
   web:
     image: node
